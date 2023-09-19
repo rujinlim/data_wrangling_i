@@ -1,0 +1,27 @@
+---
+title: "Simple document"
+output: github_document
+---
+
+```{r}
+library(tidyverse)
+```
+
+Let's import the `FAS_litters.csv` csv using a relative path.
+
+```{r}
+litters_df <- read_csv("data/FAS_litters.csv")
+litters_df <- janitor::clean_names(litters_df) # janitor is a package in R, :: means only loading this one function in janitor, no need to load the entire package if we are only using this a few times
+litters_df
+```
+
+Import the same dataset using an absolute path. This is less reproducible than the relative path because it requires you to change the entire path.
+
+```{r}
+litters_df_abs <- read_csv("/Users/rujinlim/Library/Mobile Documents/com~apple~CloudDocs/MS Biostatistics Year 1/P8105 Data Science/3. Data Wrangling I/data_wrangling_i/data/FAS_litters.csv") 
+litters_df <- janitor::clean_names(litters_df) # janitor is a package in R, :: means only loading this one function in janitor, no need to load the entire package if we are only using this a few times
+litters_df
+```
+
+
+
