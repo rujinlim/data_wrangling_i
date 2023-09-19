@@ -23,5 +23,59 @@ litters_df <- janitor::clean_names(litters_df) # janitor is a package in R, :: m
 litters_df
 ```
 
+We now import the `FAS_pups.csv` file.
+```{r}
+pups_df <- read_csv(file = "./data/FAS_pups.csv")
+pups_df <- read_csv(file = "/Users/rujinlim/Library/Mobile Documents/com~apple~CloudDocs/MS Biostatistics Year 1/P8105 Data Science/3. Data Wrangling I/data_wrangling_i/data/FAS_litters.csv")
+
+pups_df <- janitor::clean_names(pups_df)
+```
+
+## Look at data
+
+```{r}
+litters_df
+head(litters_df) # print first 6 rows
+tail(litters_df) # print last 6 rows
+```
+
+You can use `view`
+
+```{r, eval=F}
+view(litters_df)
+```
+
+Look at a data summary
+```{r}
+str(litters_df)
+skimr::skim(litters_df)
+```
+
+## Options in read_*
+
+```{r}
+litters_df <- read_csv("data/FAS_litters.csv") # assumes first row is variable names
+litters_df <- read_csv("data/FAS_litters.csv", skip = 10) # skips the first 10 rows
+```
+
+Look at NA values.
+
+```{r}
+litters_df <- read_csv("data/FAS_litters.csv", na = c("NA", 19)) # telling R to take "NA" and 19 as NAs when importing the dataset
+```
+
+Column types
+
+```{r}
+litters_df <- read_csv("data/FAS_litters.csv", col_types = cols(Group = col_factor()))
+litters_df <- read_csv("data/FAS_litters.csv", col_types = cols(`GD0 weight` = col_character())) # change it into character type
+```
+
+
+
+
+
+
+
 
 
