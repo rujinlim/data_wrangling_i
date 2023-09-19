@@ -16,6 +16,11 @@ library(tidyverse)
     ## ✖ dplyr::lag()    masks stats::lag()
     ## ℹ Use the conflicted package (<http://conflicted.r-lib.org/>) to force all conflicts to become errors
 
+``` r
+library(readxl) # not loaded in tidyverse by default so need to load separately
+library(haven) 
+```
+
 Let’s import the `FAS_litters.csv` csv using a relative path.
 
 ``` r
@@ -293,4 +298,48 @@ Column types
 ``` r
 litters_df <- read_csv("data/FAS_litters.csv", col_types = cols(Group = col_factor()))
 litters_df <- read_csv("data/FAS_litters.csv", col_types = cols(`GD0 weight` = col_character())) # change it into character type
+```
+
+## Other file types
+
+Import a xlsx file first
+
+``` r
+mlb_df <- read_excel("data/mlb11.xlsx") # very similar to csv but has some settings for excel files, can specify which tab in the spreadsheet to use
+```
+
+Import a SAS file.
+
+``` r
+pulse_df <- read_sas("data/public_pulse_data.sas7bdat") # BDI: depression index
+```
+
+## Base R…
+
+Don’t do this.
+
+``` r
+litters_df <- read.csv("data/FAS_litters.csv")
+```
+
+## Export data
+
+We have code that cleans data
+
+``` r
+litters_df_cleaned <- read_csv("data/FAS_litters.csv")
+```
+
+    ## Rows: 49 Columns: 8
+    ## ── Column specification ────────────────────────────────────────────────────────
+    ## Delimiter: ","
+    ## chr (2): Group, Litter Number
+    ## dbl (6): GD0 weight, GD18 weight, GD of Birth, Pups born alive, Pups dead @ ...
+    ## 
+    ## ℹ Use `spec()` to retrieve the full column specification for this data.
+    ## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+
+``` r
+litters_df_cleaned <- janitor::clean_names(litters_df_cleaned)
+write_csv(litters_df_cleaned, "data/litters_cleaned.csv")
 ```
