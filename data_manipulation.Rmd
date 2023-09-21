@@ -7,3 +7,37 @@ output: github_document
 library(tidyverse)
 ```
 
+Import FAS litters and pups.
+
+```{r}
+litters_df <- read_csv("data/FAS_litters.csv")
+litters_df <- janitor::clean_names(litters_df)
+
+pups_df <- read_csv("data/FAS_pups.csv")
+pups_df <- janitor::clean_names(pups_df)
+```
+
+
+## `select`
+
+`select` is used to select columns
+```{r}
+select(litters_df, group, litter_number, gd0_weight)
+
+select(litters_df, group, litter_number, gd0_weight)
+
+select(litters_df, group, litter_number, gd0_weight:gd_of_birth) # ":" allows you to select things in between
+
+select(litters_df, group, starts_with("pups")) # select all variables that starts with "pups"
+# other options: ends_with(), contains(), see ?select
+
+select(litters_df, -starts_with("gd")) # removes those that start with "gd"
+
+select(litters_df, group, litter_id=litter_number) # rename variable
+
+select(litters_df, group, litter_id=litter_number, everything()) # keep everything else
+
+select(litters_df, gd0_weight, everything()) # give "gd0_weight" first and keep everything after
+```
+
+
