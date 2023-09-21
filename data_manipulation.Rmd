@@ -40,4 +40,40 @@ select(litters_df, group, litter_id=litter_number, everything()) # keep everythi
 select(litters_df, gd0_weight, everything()) # give "gd0_weight" first and keep everything after
 ```
 
+```{r}
+rename(litters_df, litter_id = litter_number) # alternative to changing variable name with select() + everything()
+
+relocate(litters_df, litter_number) # change column positions
+```
+
+```{r}
+select(pups_df, litter_number:pd_ears)
+```
+
+## `filter`
+
+Get rid of/choose rows using `filter`.
+
+```{r}
+filter(litters_df, group == "Con7") # choose rows that are in the Con7 group
+filter(litters_df, group == "Mod8")
+# other operators include ==,<=,>=,!-, etc.
+
+filter(litters_df, gd0_weight > 20)
+
+filter(litters_df, group == "Con7" | group == "Con8") # | means or, select con7 or con8 groups
+filter(litters_df, group %in% c("Con7", "Con8"))
+
+filter(litters_df, !(group == "Con7"))
+
+filter(litters_df, !(group == "Con7"), gd0_weight > 20) # can combine multiple together
+```
+
+
+
+
+
+
+
+
 
