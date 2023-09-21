@@ -69,6 +69,50 @@ filter(litters_df, !(group == "Con7"))
 filter(litters_df, !(group == "Con7"), gd0_weight > 20) # can combine multiple together
 ```
 
+What about missing rows? Instead of using `filter()`, can use `drop_na`:
+
+```{r}
+drop_na(litters_df) # drop all NAs in the dataframe
+drop_na(litters_df, gd0_weight) # only drop NAs in the gd0_weight variable
+```
+
+
+## `mutate`
+
+This is used to add or change variables
+
+```{r}
+mutate(litters_df, wt_gain = gd18_weight - gd0_weight) # calculates weight gain through two other variables in the dataset
+mutate(litters_df, group = str_to_lower(group)) # changes "group" to lower case
+mutate(litters_df, 
+       wt_gain = gd18_weight - gd0_weight, 
+       group = str_to_lower(group)) # can add as many mutate lines together
+```
+
+## `arrange()`
+
+```{r}
+arrange(litters_df, gd0_weight) # arranges by the order of gd0_weight
+arrange(litters_df, group, gd0_weight) # arrange by group first, then by gd0_weight
+```
+
+## pipes
+
+Use the pipe operator `|>` to change together a bunch of commands
+
+```{r}
+litter_df <- 
+  read_csv("data/FAS_litters.csv") |> 
+  janitor::clean_names() |> 
+  select(-starts_with("pups")) |> 
+  mutate(
+    group = str_to_lower(group),
+    wt_gain = gd18_weight - gd0_weight,
+  ) |> 
+  drop_na(wt_gain) |> 
+  arrange(group, wt_gain)
+```
+
 
 
 
